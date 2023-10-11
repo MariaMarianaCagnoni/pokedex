@@ -1,25 +1,14 @@
-// Defina os parâmetros offset e limit
-const offset = 0;
-const limit = 10;
 
-
-const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
-
-fetch(url)
-    .then((response) => response.json())
-    .then((jsonBody) => jsonBody.results)
-    .then((pokemonList) => {
-        for (let i = 0; i < pokemonList.length; i++) {
-            const pokemon = pokemonList[i];
-            convertPokemonToLi(pokemon);
-
-
-        }
-    })
-    .catch((error) => console.error(error))
-
+pokeApi.getPokemons().then((pokemons) => {
+    const listItems = [];
+    for (let i = 0; i < pokemons.length; i++) {
+        const pokemon = pokemons[i];
+        convertPokemonToLi(pokemon);
+        listItems.push(convertPokemonToLi(pokemon));
+    }
+    console.log(listItems);
+})
 const pokemonList = document.getElementById('pokemonList')
-pokemonList.innerHTML += '<li> teste </li>'
 
 function convertPokemonToLi(pokemon) {
     return `
@@ -38,27 +27,6 @@ function convertPokemonToLi(pokemon) {
                 alt="${pokemon.name}">
     `
 }
-// fetch(url).then(response => {
-//     if (!response.ok) {
-//         throw new Error('Não foi possível obter os dados');
-//     }
-//     return response.json(); //aqui se trata do objeto convertido de streams para JSON
-// })
-//     .then(jsonBody => {
-//         console.log(Json); // Os dados da resposta da API serão impressos no console
-//     })
-//     .catch(error => {
-//         console.error('Erro:', error);
-//     })
-//     .finally(() => {
-//         console.log('requisição terminada');
-//     });
-
-
-
-// console.log("olá mundo")
-// console.log(2 + 9)
-// console.log("essa linha esta sendo respondida primeiro pq o fecth é assíncrono")
 
 
 
